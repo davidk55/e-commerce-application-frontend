@@ -1,19 +1,14 @@
-import axios from 'axios';
+import myAxios from './axiosDefaults';
 
 class AccountApiHandler {
-  private BASE_URL =
-    'https://e-commerce-application-backend-production.up.railway.app';
+  private BASE_URL = myAxios.defaults.baseURL;
 
   async register(username: string, password: string) {
     try {
-      const { data } = await axios.post(
+      const { data } = await myAxios.post(
         `${this.BASE_URL}/api/v1/register`,
         { username: username, password: password },
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
           withCredentials: true,
         }
       );
@@ -27,14 +22,10 @@ class AccountApiHandler {
 
   async login(username: string, password: string) {
     try {
-      const { data } = await axios.post(
+      const { data } = await myAxios.post(
         `${this.BASE_URL}/login`,
         { username: username, password: password },
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
           withCredentials: true,
         }
       );

@@ -1,8 +1,7 @@
-import axios from 'axios';
+import myAxios from './axiosDefaults';
 
 class CartApiHandler {
-  private BASE_URL =
-    'https://e-commerce-application-backend-production.up.railway.app';
+  private BASE_URL = myAxios.defaults.baseURL;
 
   async addProductToCart(
     accessToken: string,
@@ -10,13 +9,11 @@ class CartApiHandler {
     amount: string
   ) {
     try {
-      const { data } = await axios.post(
+      const { data } = await myAxios.post(
         `${this.BASE_URL}/api/v1/cart/add/${productId}/${amount}`,
         {},
         {
           headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
             Authorization: `Bearer ${accessToken}`,
           },
           withCredentials: true,
@@ -32,12 +29,10 @@ class CartApiHandler {
 
   async removeProductFromCart(accessToken: string, productId: string) {
     try {
-      const { data } = await axios.delete(
+      const { data } = await myAxios.delete(
         `${this.BASE_URL}/api/v1/cart/remove/${productId}`,
         {
           headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
             Authorization: `Bearer ${accessToken}`,
           },
           withCredentials: true,
@@ -57,13 +52,11 @@ class CartApiHandler {
     amount: string
   ) {
     try {
-      const { data } = await axios.put(
+      const { data } = await myAxios.put(
         `${this.BASE_URL}/api/v1/cart/update/${productId}/${amount}`,
         {},
         {
           headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
             Authorization: `Bearer ${accessToken}`,
           },
           withCredentials: true,
@@ -79,10 +72,8 @@ class CartApiHandler {
 
   async getCart(accessToken: string) {
     try {
-      const { data } = await axios.get(`${this.BASE_URL}/api/v1/cart`, {
+      const { data } = await myAxios.get(`${this.BASE_URL}/api/v1/cart`, {
         headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
           Authorization: `Bearer ${accessToken}`,
         },
         withCredentials: true,

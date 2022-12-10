@@ -1,4 +1,5 @@
 import axios from 'axios';
+import myAxios from './axiosDefaults';
 
 interface Product {
   id: number;
@@ -11,18 +12,12 @@ interface Product {
 }
 
 class ProductApiHandler {
-  private BASE_URL =
-    'https://e-commerce-application-backend-production.up.railway.app';
+  private BASE_URL = myAxios.defaults.baseURL;
 
   async getProducts() {
     try {
-      const { data } = await axios.get<Product[]>(
-        `${this.BASE_URL}/api/v1/products`,
-        {
-          headers: {
-            Accept: 'application/json',
-          },
-        }
+      const { data } = await myAxios.get<Product[]>(
+        `${this.BASE_URL}/api/v1/products`
       );
       return data;
     } catch (error) {
@@ -38,13 +33,8 @@ class ProductApiHandler {
 
   async getProductById(id: string) {
     try {
-      const { data } = await axios.get<Product>(
-        `${this.BASE_URL}/api/v1/product/${id}`,
-        {
-          headers: {
-            Accept: 'application/json',
-          },
-        }
+      const { data } = await myAxios.get<Product>(
+        `${this.BASE_URL}/api/v1/product/${id}`
       );
       return data;
     } catch (error) {

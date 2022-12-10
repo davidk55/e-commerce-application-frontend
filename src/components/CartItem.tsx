@@ -9,7 +9,6 @@ interface Props {
   price: number;
   id: number;
   amount: number;
-  key: number;
 }
 
 function CartItem(props: Props) {
@@ -43,10 +42,7 @@ function CartItem(props: Props) {
   }
 
   return (
-    <div
-      key={props.key}
-      className='grid grid-cols-3 gap-5 md:grid-cols-4 md:gap-10'
-    >
+    <div className='grid grid-cols-3 gap-5 md:grid-cols-4 md:gap-10'>
       <img className='h-36 justify-self-center' src={props.imageUrl} alt='' />
       <div className='flex flex-col justify-start gap-3 md:col-span-2'>
         <p className='text-lg font-bold'>{props.name}</p>

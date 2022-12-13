@@ -17,6 +17,7 @@ function Login() {
   const authentication = useAuth();
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setShowInvalidLoginMessage(false);
     const { name, value } = event.target;
     setFormData((prevFormData) => {
       return {
@@ -50,12 +51,19 @@ function Login() {
       navigate(from, { replace: true });
     }
 
+    setFormData((prevFormData) => {
+      return {
+        ...prevFormData,
+        password: '',
+      };
+    });
+
     setShowInvalidLoginMessage(true);
   }
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={(e) => handleSubmit(e)}
       className='flex w-11/12 max-w-2xl flex-col gap-10 rounded border border-[#6F6F6F] py-16 px-8 sm:w-8/12 md:px-24 lg:px-32'
     >
       <h3 className='text-2xl font-bold tracking-wide'>Login</h3>

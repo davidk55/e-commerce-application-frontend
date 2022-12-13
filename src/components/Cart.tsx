@@ -1,19 +1,20 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CartApiHandler from '../api/CartApiHandler';
 import useAuth from '../hooks/useAuth';
 import CartItem from './CartItem';
 
 function Cart() {
   const authentication = useAuth();
   const navigate = useNavigate();
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  function handleCartItemDelete(productId: number) {
-    CartApiHandler.removeProductFromCart(
-      authentication?.auth.accessToken,
-      productId.toString()
+  useEffect(() => {
+    let totalPrice = 0;
+    authentication.cart.forEach(
+      (cartProd) => (totalPrice += cartProd.product.price * cartProd.amount)
     );
-    authentication.updateCart();
-  }
+    setTotalPrice(totalPrice);
+  }, [authentication.cart]);
 
   function createCartItems() {
     return authentication.cart.map((cartProd, idx) => {
@@ -24,8 +25,13 @@ function Cart() {
   }
 
   return (
-    <div className='flex w-11/12 max-w-screen-lg flex-col gap-20 rounded border border-[#6F6F6F] p-8 sm:w-10/12 lg:p-16'>
+    <div className='flex w-11/12 max-w-screen-lg flex-col gap-10 rounded border border-[#6F6F6F] p-8 sm:w-10/12 lg:p-16'>
       {createCartItems()}
+      {authentication.cart.length > 0 && (
+        <p className='text-xl font-bold text-[#ECECEC]'>
+          {`Total: $${totalPrice.toFixed(2)}`}
+        </p>
+      )}
       {authentication.cart.length == 0 && <p>No Items in cart</p>}
       {authentication.cart.length > 0 && (
         <button

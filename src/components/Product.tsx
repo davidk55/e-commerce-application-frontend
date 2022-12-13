@@ -65,12 +65,14 @@ function Product() {
       />
       <div>
         <h2 className='mb-1 text-xl'>{product?.name}</h2>
-        <h3 className='mb-1.5 text-2xl font-bold'>{`$${product?.price}`}</h3>
+        <h3 className='mb-1.5 text-2xl font-bold'>{`$${product?.price.toFixed(
+          2
+        )}`}</h3>
         <p className='text-xs text-[#ECECEC]'>{`Category: ${product?.category}`}</p>
       </div>
       <button
         className='max-h-8 w-24 items-start rounded bg-[#97C193] font-bold md:w-28 md:text-sm'
-        onClick={addToCart}
+        onClick={() => addToCart()}
       >
         Add to Cart
       </button>

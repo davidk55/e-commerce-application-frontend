@@ -30,7 +30,9 @@ function App() {
               <Route path='product/:id' element={<Product />} />
               <Route path='login' element={<Login />} />
               <Route path='register' element={<Register />} />
-              <Route element={<RequireAuth allowedRoles={[Role.user]} />}>
+              <Route
+                element={<RequireAuth allowedRoles={[Role.user, Role.admin]} />}
+              >
                 <Route path='cart' element={<Cart />} />
                 <Route path='checkout' element={<Checkout />} />
               </Route>

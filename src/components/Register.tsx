@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AccountApiHandler from '../api/AccountApiHandler';
+import CartApiHandler from '../api/CartApiHandler';
+import useAuth from '../hooks/useAuth';
 import RegisterInput from './RegisterInput';
 
 function Register() {
@@ -47,11 +49,11 @@ function Register() {
   });
   const [showMessage, setShowMessage] = useState({
     invalidField: false,
-    useExist: false,
+    userExist: false,
   });
 
   function validateEmail(value: string) {
-    setShowMessage({ useExist: false, invalidField: false });
+    setShowMessage({ userExist: false, invalidField: false });
 
     formData.current.username = value;
 
@@ -62,7 +64,7 @@ function Register() {
   }
 
   function validatePassword(value: string) {
-    setShowMessage({ useExist: false, invalidField: false });
+    setShowMessage({ userExist: false, invalidField: false });
 
     formData.current.password = value;
     setPasswordChangeTrigger((prev) => prev + 1);
@@ -74,7 +76,7 @@ function Register() {
   }
 
   function validateConfirmPassword(value: string) {
-    setShowMessage({ useExist: false, invalidField: false });
+    setShowMessage({ userExist: false, invalidField: false });
 
     const isConfirmedPasswordValid = formData.current.password == value;
     areAllInputsValid.current.confirmPassword = isConfirmedPasswordValid;
@@ -87,18 +89,18 @@ function Register() {
 
     const { email, password, confirmPassword } = areAllInputsValid.current;
     if (!email || !password || !confirmPassword) {
-      setShowMessage({ useExist: false, invalidField: true });
+      setShowMessage({ userExist: false, invalidField: true });
       return;
     }
 
-    setShowMessage({ useExist: false, invalidField: false });
+    setShowMessage({ userExist: false, invalidField: false });
 
     const response = await AccountApiHandler.register(
       formData.current.username,
       formData.current.password
     );
     if (typeof response != 'number') navigate('/');
-    setShowMessage({ useExist: true, invalidField: false });
+      setShowMessage({ userExist: true, invalidField: false });
   }
 
   function handleCancel() {
@@ -107,7 +109,7 @@ function Register() {
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={(e) => handleSubmit(e)}
       className='flex w-11/12 max-w-2xl flex-col gap-10 rounded border border-[#6F6F6F] py-16 px-8 sm:w-8/12 md:px-24 lg:px-32'
     >
       <h3 className='text-2xl font-bold tracking-wide'>Register</h3>
@@ -133,7 +135,7 @@ function Register() {
             In order to continue correct the invalid fields
           </p>
         )}
-        {showMessage.useExist && (
+        {showMessage.userExist && (
           <p className='mb-2 text-red-500'>User exist already</p>
         )}
         <div className='flex flex-col gap-10 md:flex-row lg:gap-16'>
@@ -147,7 +149,7 @@ function Register() {
           <button
             className='w-24 rounded bg-[#C95252] py-1.5 text-sm font-bold'
             type='button'
-            onClick={handleCancel}
+            onClick={() => handleCancel()}
           >
             Cancel
           </button>

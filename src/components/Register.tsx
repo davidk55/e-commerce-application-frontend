@@ -5,6 +5,8 @@ import CartApiHandler from '../api/CartApiHandler';
 import useAuth from '../hooks/useAuth';
 import RegisterInput from './RegisterInput';
 
+// TODO: add accibility features: https://www.youtube.com/watch?v=X3qyxo_UTR4
+
 function Register() {
   const validator = {
     emailValidator:
@@ -40,6 +42,7 @@ function Register() {
     username: '',
     password: '',
   });
+  const authentication = useAuth();
 
   const [passwordChangeTrigger, setPasswordChangeTrigger] = useState(0);
   const areAllInputsValid = useRef({
@@ -99,8 +102,31 @@ function Register() {
       formData.current.username,
       formData.current.password
     );
-    if (typeof response != 'number') navigate('/');
+    if (typeof response == 'number') {
       setShowMessage({ userExist: true, invalidField: false });
+      return;
+    }
+
+    const userResponse = await AccountApiHandler.login(
+      formData.current.username,
+      formData.current.password
+    );
+    const cartResponse = await CartApiHandler.getCart(
+      userResponse?.AccessToken
+    );
+
+    if (typeof userResponse != 'number' || typeof cartResponse != 'number') {
+      authentication.setAuth({
+        accessToken: userResponse?.AccessToken,
+        username: formData.current.username,
+        role: userResponse?.Role,
+        loggedIn: true,
+      });
+
+      // go to intended site and remove the login page from browser history
+      // navigate(from, { replace: true });
+    }
+    navigate('/');
   }
 
   function handleCancel() {

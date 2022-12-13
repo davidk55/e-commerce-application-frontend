@@ -52,21 +52,24 @@ function Header() {
           </button>
         )}
         <button>
-          <Link
-            to='/cart'
-            className='just -mr-8 flex flex-col items-center justify-center'
-          >
-            {' '}
-            <div className='-mt-5 flex items-end gap-1'>
-              <img className='h-fit w-fit' src={shoppingBag} alt='' />
-              <p className='pb-2'>{authentication?.cart.length}</p>
-            </div>
-            <p className='text-sm tracking-wide'>Shopping Cart</p>
-          </Link>
+          {authentication.auth.loggedIn && (
+            <Link
+              to='/cart'
+              className='just -mr-8 flex flex-col items-center justify-center'
+            >
+              <div className='-mt-5 flex items-end gap-1'>
+                <img className='h-fit w-fit' src={shoppingBag} alt='' />
+                <p className='pb-2 '>{authentication?.cart.length}</p>
+              </div>
+              <p className='text-sm tracking-wide hover:text-gray-300'>
+                Shopping Cart
+              </p>
+            </Link>
+          )}
         </button>
         {!authentication?.auth.loggedIn && (
           <button
-            className='-mt-16 -mr-5 text-xs tracking-wide underline'
+            className='-mt-16 -mr-5 text-xs tracking-wide underline hover:text-gray-300'
             onClick={() => navigate('/register')}
           >
             Sign Up

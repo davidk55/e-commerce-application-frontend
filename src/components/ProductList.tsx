@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import ProductListItem from './ProductListItem';
 import ProductApiHandler from '../api/ProductApiHandler';
+import useAuth from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 interface Product {
   id: number;
@@ -8,6 +10,11 @@ interface Product {
   name: string;
   price: number;
   category: string;
+}
+
+enum Role {
+  user = 'ROLE_USER',
+  admin = 'ROLE_ADMIN',
 }
 
 function ProductList() {
@@ -24,7 +31,23 @@ function ProductList() {
     }
 
     fetchProducts();
-  }, []);
+  }, [productUpdTrigger]);
+
+  function handleDelete(productId: number) {
+    ProductApiHandler.deleteProduct(
+      authentication?.auth.accessToken,
+      productId
+    );
+    setTimeout(() => {
+      setProductUpdTrigger(
+        (prevProudctUpdTrigger) => prevProudctUpdTrigger + 1
+      );
+    }, 200);
+  }
+
+  function handleEdit(productId: number) {
+    navigate(`/edit/${productId}`);
+  }
 
   function createProducts() {
     return products.map((product, idx) => {
@@ -36,6 +59,8 @@ function ProductList() {
           name={product.name}
           price={product.price}
           category={product.category}
+          handleDelete={(id: number) => handleDelete(id)}
+          handleEdit={(id: number) => handleEdit(id)}
         />
       );
     });
@@ -46,8 +71,6 @@ function ProductList() {
   }
 
   return (
-    <div className='grid max-w-screen-2xl items-center gap-32 rounded border border-[#6F6F6F] p-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-      {createProducts()}
     <div>
       {authentication.auth.role == Role.admin && (
         <button
@@ -57,6 +80,9 @@ function ProductList() {
           Create New Product
         </button>
       )}
+      <div className='grid max-w-screen-2xl items-center gap-32 rounded border border-[#6F6F6F] p-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+        {createProducts()}
+      </div>
     </div>
   );
 }

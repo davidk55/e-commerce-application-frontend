@@ -67,6 +67,42 @@ class ProductApiHandler {
     }
   }
 
+  async updateProduct(accessToken: string, product: Product) {
+    try {
+      const { data } = await myAxios.put<Product>(
+        `${this.BASE_URL}/api/v1/product/update/${product.id}`,
+        product,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      return data;
+    } catch (error: any) {
+      if (error.response) {
+        return error.response.status;
+      }
+    }
+  }
+
+  async deleteProduct(accessToken: string, productId: number) {
+    try {
+      const { data } = await myAxios.delete<Product>(
+        `${this.BASE_URL}/api/v1/product/delete/${productId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      return data;
+    } catch (error: any) {
+      if (error.response) {
+        return error.response.status;
+      }
+    }
+  }
 }
 
 export default new ProductApiHandler();

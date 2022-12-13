@@ -16,7 +16,6 @@ class CartApiHandler {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-          withCredentials: true,
         }
       );
       return data;
@@ -35,7 +34,6 @@ class CartApiHandler {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-          withCredentials: true,
         }
       );
       return data;
@@ -59,7 +57,6 @@ class CartApiHandler {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-          withCredentials: true,
         }
       );
       return data;
@@ -76,7 +73,6 @@ class CartApiHandler {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-        withCredentials: true,
       });
       return data?.products;
     } catch (error: any) {

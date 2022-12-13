@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import CartApiHandler from '../../api/CartApiHandler';
+import useRefreshToken from '../../hooks/useRefreshToken';
 
 interface Product {
   category: string;
@@ -43,21 +44,57 @@ export function AuthProvider(props: Props) {
   });
   const [cartUpdTrigger, setCartUpdTrigger] = useState(0);
   const [cart, setCart] = useState<CartProduct[]>([] as CartProduct[]);
+  const refresh = useRefreshToken();
 
   useEffect(() => {
-    if (!auth.loggedIn) return;
+    async function tryReAuthenticate() {
+      const refreshResponse = await refresh();
+
+      if (typeof refreshResponse == 'number') return;
+
+      const jwtContent = parseJwt(refreshResponse);
+      setAuth({
+        accessToken: refreshResponse,
+        username: jwtContent.sub ?? '',
+        role: jwtContent?.authorities[0]?.authority ?? '',
+        loggedIn: true,
+      });
+    }
+
+    if (!auth.loggedIn) tryReAuthenticate();
+
+    if (auth.accessToken == '') {
+      setCart([]);
+      return;
+    }
 
     async function fetchCart() {
       const newCart = await CartApiHandler.getCart(auth.accessToken);
       setCart(newCart);
     }
 
-    if (cartUpdTrigger > 0) setTimeout(fetchCart, 500);
+    if (cartUpdTrigger > 0) setTimeout(fetchCart, 300);
     else fetchCart();
   }, [cartUpdTrigger, auth]);
 
   function updateCart() {
     setCartUpdTrigger((prev) => prev + 1);
+  }
+
+  function parseJwt(token: string) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(
+      window
+        .atob(base64)
+        .split('')
+        .map(function (c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join('')
+    );
+
+    return JSON.parse(jsonPayload);
   }
 
   return (

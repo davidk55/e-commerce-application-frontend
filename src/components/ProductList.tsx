@@ -12,6 +12,9 @@ interface Product {
 
 function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
+  const authentication = useAuth();
+  const navigate = useNavigate();
+  const [productUpdTrigger, setProductUpdTrigger] = useState(0);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -38,9 +41,22 @@ function ProductList() {
     });
   }
 
+  function createNewProduct() {
+    navigate('/create');
+  }
+
   return (
     <div className='grid max-w-screen-2xl items-center gap-32 rounded border border-[#6F6F6F] p-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
       {createProducts()}
+    <div>
+      {authentication.auth.role == Role.admin && (
+        <button
+          className='mb-8 h-8 w-36 items-start rounded bg-[#8B8DB2] font-bold md:w-40 md:text-sm'
+          onClick={() => createNewProduct()}
+        >
+          Create New Product
+        </button>
+      )}
     </div>
   );
 }

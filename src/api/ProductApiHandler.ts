@@ -47,6 +47,26 @@ class ProductApiHandler {
       }
     }
   }
+
+  async createProduct(accessToken: string, product: Product) {
+    try {
+      const { data } = await myAxios.post<Product>(
+        `${this.BASE_URL}/api/v1/product/create`,
+        product,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      return data;
+    } catch (error: any) {
+      if (error.response) {
+        return error.response.status;
+      }
+    }
+  }
+
 }
 
 export default new ProductApiHandler();

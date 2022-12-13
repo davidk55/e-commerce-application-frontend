@@ -11,6 +11,7 @@ import Cart from './Cart';
 import Product from './Product';
 import Unauthorized from './Unauthorized';
 import Checkout from './Checkout';
+import CreateProduct from './CreateProduct';
 
 enum Role {
   user = 'ROLE_USER',
@@ -33,6 +34,9 @@ function App() {
                 <Route path='checkout' element={<Checkout />} />
               </Route>
 
+              <Route element={<RequireAuth allowedRoles={[Role.admin]} />}>
+                <Route path='create' element={<CreateProduct />} />
+              </Route>
               <Route path='unauthorized' element={<Unauthorized />} />
               <Route path='*' element={<Missing />} />
             </Route>

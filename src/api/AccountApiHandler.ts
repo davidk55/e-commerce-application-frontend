@@ -36,6 +36,23 @@ class AccountApiHandler {
       }
     }
   }
+
+  async logout() {
+    try {
+      const { data } = await myAxios.get(
+        `${this.BASE_URL}/api/v1/logout`,
+
+        {
+          withCredentials: true,
+        }
+      );
+      return data;
+    } catch (error: any) {
+      if (error.response) {
+        return error.response.status;
+      }
+    }
+  }
 }
 
 export default new AccountApiHandler();

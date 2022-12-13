@@ -1,4 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
+import AccountApiHandler from '../api/AccountApiHandler';
 import shoppingBag from '../assets/images/shopping-bag.png';
 import useAuth from '../hooks/useAuth';
 
@@ -10,6 +11,17 @@ enum Role {
 function Header() {
   const navigate = useNavigate();
   const authentication = useAuth();
+
+  function handleLogout() {
+    authentication.setAuth({
+      accessToken: '',
+      username: '',
+      role: '',
+      loggedIn: false,
+    });
+    AccountApiHandler.logout();
+    authentication.updateCart();
+  }
 
   return (
     <header
@@ -28,7 +40,7 @@ function Header() {
         className='my-auto h-full hover:text-gray-300'
         onClick={() => navigate('/')}
       >
-        <h1>Home</h1>
+        Home
       </button>
       <div className='flex h-full items-center gap-10 justify-self-end'>
         {!authentication?.auth?.loggedIn && (
@@ -58,6 +70,14 @@ function Header() {
             onClick={() => navigate('/register')}
           >
             Sign Up
+          </button>
+        )}
+        {authentication?.auth.loggedIn && (
+          <button
+            className='-mt-16 -mr-5 text-xs tracking-wide hover:text-gray-300'
+            onClick={() => handleLogout()}
+          >
+            Logout
           </button>
         )}
       </div>

@@ -62,7 +62,7 @@ function CartItem(props: Props) {
         {editing && (
           <button
             className='w-24 rounded bg-[#97C193] py-1.5 font-bold md:w-20 md:text-sm'
-            onClick={handleSave}
+            onClick={() => handleSave()}
           >
             Save
           </button>
@@ -77,7 +77,14 @@ function CartItem(props: Props) {
         )}
       </div>
       <div className='flex flex-col justify-around justify-self-end'>
-        <p className='text-xl font-bold text-[#ECECEC]'>{`$${props.price}`}</p>
+        <p className='text-right text-xl font-bold text-[#ECECEC]'>{`$${(
+          props.price * props.amount
+        ).toFixed(2)}`}</p>
+        {props.amount > 1 && (
+          <p className='text-right text-sm text-gray-300'>{`($${props.price.toFixed(
+            2
+          )} each)`}</p>
+        )}
         <button
           className='h-8 w-24 rounded bg-[#C95252] font-bold md:w-28 md:text-sm'
           onClick={() => handleCartItemDelete(props.id)}

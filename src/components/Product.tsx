@@ -57,29 +57,33 @@ function Product() {
   }
 
   return (
-    <div className='grid max-h-64 w-9/12 max-w-screen-md grid-cols-4 grid-rows-2 gap-10'>
-      <img
-        className='col-span-2 row-span-2 h-full justify-self-end rounded'
-        src={product?.imageUrl}
-        alt=''
-      />
-      <div>
-        <h2 className='mb-1 text-xl'>{product?.name}</h2>
-        <h3 className='mb-1.5 text-2xl font-bold'>{`$${product?.price.toFixed(
-          2
-        )}`}</h3>
-        <p className='text-xs text-[#ECECEC]'>{`Category: ${product?.category}`}</p>
-      </div>
-      <button
-        className='max-h-8 w-24 items-start rounded bg-[#97C193] font-bold md:w-28 md:text-sm'
-        onClick={() => addToCart()}
-      >
-        Add to Cart
-      </button>
-      <p className='col-span-2 text-xs text-[#ECECEC]'>
-        {product?.description}
-      </p>
-    </div>
+    <>
+      {product != null && (
+        <div className='grid max-h-64 w-9/12 max-w-screen-md grid-cols-4 grid-rows-2 gap-10'>
+          <img
+            className='col-span-2 row-span-2 h-full justify-self-end rounded'
+            src={product?.imageUrl}
+            alt='tablet'
+          />
+          <div>
+            <h2 className='mb-1 text-xl'>{product?.name}</h2>
+            <h3 className='mb-1.5 text-2xl font-bold'>{`$${product?.price.toFixed(
+              2
+            )}`}</h3>
+            <p className='text-xs text-[#ECECEC]'>{`Category: ${product?.category}`}</p>
+          </div>
+          <button
+            className='max-h-8 w-24 items-start rounded bg-[#97C193] font-bold md:w-28 md:text-sm'
+            onClick={() => addToCart()}
+          >
+            Add to Cart
+          </button>
+          <p className='col-span-2 text-xs text-[#ECECEC]'>
+            {product?.description}
+          </p>
+        </div>
+      )}
+    </>
   );
 }
 

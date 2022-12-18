@@ -3,6 +3,8 @@ import ProductListItem from './ProductListItem';
 import ProductApiHandler from '../api/ProductApiHandler';
 import useAuth from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import SortBy from './SortBy';
+import ProductListItemSorter from './ProductListItemSorter';
 
 interface Product {
   id: number;
@@ -22,6 +24,10 @@ function ProductList() {
   const authentication = useAuth();
   const navigate = useNavigate();
   const [productUpdTrigger, setProductUpdTrigger] = useState(0);
+  const [sortOption, setSortOption] = useState({
+    name: 'Newest',
+    identifier: 'newest',
+  });
 
   useEffect(() => {
     async function fetchProducts() {
@@ -80,8 +86,11 @@ function ProductList() {
           Create New Product
         </button>
       )}
+      <SortBy sortOption={sortOption} setSortOption={setSortOption} />
       <div className='grid max-w-screen-2xl items-center gap-32 rounded border border-[#6F6F6F] p-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-        {createProducts()}
+        <ProductListItemSorter sortIdentifier={sortOption.identifier}>
+          {createProducts()}
+        </ProductListItemSorter>
       </div>
     </div>
   );

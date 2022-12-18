@@ -30,7 +30,6 @@ function ProductListItem(props: Props) {
         <img className='mb-3 h-40 rounded' src={props.imageUrl} />
         <p className='mb-2 text-sm'>{props.name}</p>
         <p className='mb-3 text-xl'>{`$${props.price.toFixed(2)}`}</p>
-        {/* <p>{formatCategories(props.categories)}</p> */}
         <p className='text-xs text-[#ECECEC]'>{`Category: ${props.category}`}</p>
       </button>
       {authentication.auth.role == Role.admin && (

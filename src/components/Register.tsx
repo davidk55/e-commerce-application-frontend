@@ -5,8 +5,6 @@ import CartApiHandler from '../api/CartApiHandler';
 import useAuth from '../hooks/useAuth';
 import RegisterInput from './RegisterInput';
 
-// TODO: add accibility features: https://www.youtube.com/watch?v=X3qyxo_UTR4
-
 function Register() {
   const validator = {
     emailValidator:

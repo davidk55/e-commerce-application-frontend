@@ -45,6 +45,7 @@ function Login() {
         username: formData.username,
         role: userResponse?.Role,
         loggedIn: true,
+        attemptLogout: false,
       });
 
       // go to intended site and remove the login page from browser history

@@ -21,6 +21,7 @@ interface AuthData {
   username: string;
   role: string;
   loggedIn: boolean;
+  attemptLogout: boolean;
 }
 interface Auth {
   auth: AuthData;
@@ -41,6 +42,7 @@ export function AuthProvider(props: Props) {
     username: '',
     role: '',
     loggedIn: false,
+    attemptLogout: false,
   });
   const [cartUpdTrigger, setCartUpdTrigger] = useState(0);
   const [cart, setCart] = useState<CartProduct[]>([] as CartProduct[]);
@@ -51,6 +53,7 @@ export function AuthProvider(props: Props) {
       const refreshResponse = await refresh();
 
       if (typeof refreshResponse == 'number') return;
+      if (auth.attemptLogout) return;
 
       const jwtContent = parseJwt(refreshResponse);
       setAuth({
@@ -58,6 +61,7 @@ export function AuthProvider(props: Props) {
         username: jwtContent.sub ?? '',
         role: jwtContent?.authorities[0]?.authority ?? '',
         loggedIn: true,
+        attemptLogout: false,
       });
     }
 

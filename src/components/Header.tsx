@@ -18,9 +18,9 @@ function Header() {
       username: '',
       role: '',
       loggedIn: false,
+      attemptLogout: true,
     });
     AccountApiHandler.logout();
-    authentication.updateCart();
   }
 
   return (

@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 const myAxios = axios.create({
-  baseURL: 'https://e-commerce-application-backend-production.up.railway.app',
+  baseURL:
+    process.env.NODE_ENV === 'production'
+      ? 'https://e-commerce-application-backend-production.up.railway.app'
+      : 'http://localhost:8080',
 });
 
 myAxios.defaults.headers.get['Accept'] = 'application/json';

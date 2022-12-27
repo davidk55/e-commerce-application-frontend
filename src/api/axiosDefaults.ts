@@ -3,7 +3,7 @@ import axios from 'axios';
 const myAxios = axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
-      ? 'https://e-commerce-application-backend-production.up.railway.app'
+      ? 'https://e-commerce-application.up.railway.app'
       : 'http://localhost:8080',
 });
 

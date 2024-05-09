@@ -6,7 +6,7 @@ class CartApiHandler {
   async addProductToCart(
     accessToken: string,
     productId: string,
-    amount: string
+    amount: string,
   ) {
     try {
       const { data } = await myAxios.post(
@@ -16,7 +16,7 @@ class CartApiHandler {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
+        },
       );
       return data;
     } catch (error: any) {
@@ -34,7 +34,7 @@ class CartApiHandler {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
+        },
       );
       return data;
     } catch (error: any) {
@@ -47,7 +47,7 @@ class CartApiHandler {
   async changeProductAmountInCart(
     accessToken: string,
     productId: string,
-    amount: string
+    amount: string,
   ) {
     try {
       const { data } = await myAxios.put(
@@ -57,7 +57,7 @@ class CartApiHandler {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
+        },
       );
       return data;
     } catch (error: any) {

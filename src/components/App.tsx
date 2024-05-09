@@ -25,25 +25,25 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-            <Route path='/' element={<Layout />}>
+            <Route path="/" element={<Layout />}>
               <Route index element={<ProductList />} />
-              <Route path='product/:id' element={<Product />} />
-              <Route path='login' element={<Login />} />
-              <Route path='register' element={<Register />} />
+              <Route path="product/:id" element={<Product />} />
+              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
               <Route
                 element={<RequireAuth allowedRoles={[Role.user, Role.admin]} />}
               >
-                <Route path='cart' element={<Cart />} />
-                <Route path='checkout' element={<Checkout />} />
+                <Route path="cart" element={<Cart />} />
+                <Route path="checkout" element={<Checkout />} />
               </Route>
 
               <Route element={<RequireAuth allowedRoles={[Role.admin]} />}>
-                <Route path='create' element={<CreateProduct />} />
-                <Route path='edit/:productId' element={<EditProduct />} />
+                <Route path="create" element={<CreateProduct />} />
+                <Route path="edit/:productId" element={<EditProduct />} />
               </Route>
 
-              <Route path='unauthorized' element={<Unauthorized />} />
-              <Route path='*' element={<Missing />} />
+              <Route path="unauthorized" element={<Unauthorized />} />
+              <Route path="*" element={<Missing />} />
             </Route>
           </Routes>
         </AuthProvider>

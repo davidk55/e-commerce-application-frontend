@@ -22,9 +22,8 @@ function Product() {
     async function fetchProducts() {
       if (id == undefined) return;
 
-      const product: Product | string = await ProductApiHandler.getProductById(
-        id
-      );
+      const product: Product | string =
+        await ProductApiHandler.getProductById(id);
 
       if (typeof product != 'string') setProduct(product);
     }
@@ -41,7 +40,7 @@ function Product() {
       CartApiHandler.changeProductAmountInCart(
         authentication.auth.accessToken,
         id,
-        (+productCount + 1).toString()
+        (+productCount + 1).toString(),
       );
       authentication.updateCart();
       return;
@@ -52,33 +51,33 @@ function Product() {
 
   function productCountInCart(productId: string) {
     return authentication.cart.find(
-      (cartItem) => cartItem.product.id.toString() == productId
+      (cartItem) => cartItem.product.id.toString() == productId,
     )?.amount;
   }
 
   return (
     <>
       {product != null && (
-        <div className='grid max-h-64 w-9/12 max-w-screen-md grid-cols-4 grid-rows-2 gap-10'>
+        <div className="grid grid-cols-4 grid-rows-2 gap-10 w-9/12 max-w-screen-md max-h-64">
           <img
-            className='col-span-2 row-span-2 h-full justify-self-end rounded'
+            className="col-span-2 row-span-2 justify-self-end h-full rounded"
             src={product?.imageUrl}
-            alt='tablet'
+            alt="tablet"
           />
           <div>
-            <h2 className='mb-1 text-xl'>{product?.name}</h2>
-            <h3 className='mb-1.5 text-2xl font-bold'>{`$${product?.price.toFixed(
-              2
+            <h2 className="mb-1 text-xl">{product?.name}</h2>
+            <h3 className="mb-1.5 text-2xl font-bold">{`$${product?.price.toFixed(
+              2,
             )}`}</h3>
-            <p className='text-xs text-[#ECECEC]'>{`Category: ${product?.category}`}</p>
+            <p className="text-xs text-[#ECECEC]">{`Category: ${product?.category}`}</p>
           </div>
           <button
-            className='max-h-8 w-24 items-start rounded bg-[#97C193] font-bold md:w-28 md:text-sm'
+            className="max-h-8 w-24 items-start rounded bg-[#97C193] font-bold md:w-28 md:text-sm"
             onClick={() => addToCart()}
           >
             Add to Cart
           </button>
-          <p className='col-span-2 text-xs text-[#ECECEC]'>
+          <p className="col-span-2 text-xs text-[#ECECEC]">
             {product?.description}
           </p>
         </div>

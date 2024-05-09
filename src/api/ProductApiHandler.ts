@@ -17,7 +17,7 @@ class ProductApiHandler {
   async getProducts() {
     try {
       const { data } = await myAxios.get<Product[]>(
-        `${this.BASE_URL}/api/v1/products`
+        `${this.BASE_URL}/api/v1/products`,
       );
       return data;
     } catch (error) {
@@ -34,7 +34,7 @@ class ProductApiHandler {
   async getProductById(id: string) {
     try {
       const { data } = await myAxios.get<Product>(
-        `${this.BASE_URL}/api/v1/product/${id}`
+        `${this.BASE_URL}/api/v1/product/${id}`,
       );
       return data;
     } catch (error) {
@@ -57,7 +57,7 @@ class ProductApiHandler {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
+        },
       );
       return data;
     } catch (error: any) {
@@ -76,7 +76,7 @@ class ProductApiHandler {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
+        },
       );
       return data;
     } catch (error: any) {
@@ -94,7 +94,7 @@ class ProductApiHandler {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
+        },
       );
       return data;
     } catch (error: any) {

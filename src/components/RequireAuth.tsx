@@ -12,9 +12,9 @@ function RequireAuth(props: Props) {
   return props.allowedRoles.includes(authorization?.auth?.role) ? (
     <Outlet />
   ) : authorization?.auth?.accessToken != '' ? (
-    <Navigate to='/unauthorized' state={{ from: location }} replace />
+    <Navigate to="/unauthorized" state={{ from: location }} replace />
   ) : (
-    <Navigate to='/' state={{ from: location }} replace />
+    <Navigate to="/" state={{ from: location }} replace />
   );
 }
 

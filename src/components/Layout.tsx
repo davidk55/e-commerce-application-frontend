@@ -6,7 +6,7 @@ function Layout() {
   return (
     <>
       <Header />
-      <main className='mt-48 flex items-center justify-center'>
+      <main className="flex justify-center items-center mt-48">
         <Outlet />
       </main>
       <Footer />

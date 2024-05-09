@@ -21,7 +21,7 @@ function CartItem(props: Props) {
   function handleCartItemDelete(productId: number) {
     CartApiHandler.removeProductFromCart(
       authentication?.auth.accessToken,
-      productId.toString()
+      productId.toString(),
     );
     authentication.updateCart();
   }
@@ -35,25 +35,25 @@ function CartItem(props: Props) {
     CartApiHandler.changeProductAmountInCart(
       authentication.auth.accessToken,
       props.id.toString(),
-      amount
+      amount,
     );
     authentication.updateCart();
     setEditing(false);
   }
 
   return (
-    <div className='grid grid-cols-3 gap-5 md:grid-cols-4 md:gap-10'>
-      <img className='h-36 justify-self-center' src={props.imageUrl} alt='' />
-      <div className='flex flex-col justify-start gap-3 md:col-span-2'>
-        <p className='text-lg font-bold'>{props.name}</p>
-        <p className='text-xs'>{`Category: ${props.category}`}</p>
-        <div className='flex gap-3'>
-          <p className='text-sm'>{`Count: ${!editing ? props.amount : ''}`}</p>
+    <div className="grid grid-cols-3 gap-5 md:grid-cols-4 md:gap-10">
+      <img className="justify-self-center h-36" src={props.imageUrl} alt="" />
+      <div className="flex flex-col gap-3 justify-start md:col-span-2">
+        <p className="text-lg font-bold">{props.name}</p>
+        <p className="text-xs">{`Category: ${props.category}`}</p>
+        <div className="flex gap-3">
+          <p className="text-sm">{`Count: ${!editing ? props.amount : ''}`}</p>
           {editing && (
             <input
-              className='w-10 border border-[#6F6F6F] bg-[#4F4F4F] py-0.5 px-1.5 text-sm outline-none'
-              type='text'
-              name='amount'
+              className="w-10 border border-[#6F6F6F] bg-[#4F4F4F] py-0.5 px-1.5 text-sm outline-none"
+              type="text"
+              name="amount"
               value={amount}
               onChange={handleChange}
             />
@@ -61,7 +61,7 @@ function CartItem(props: Props) {
         </div>
         {editing && (
           <button
-            className='w-24 rounded bg-[#97C193] py-1.5 font-bold md:w-20 md:text-sm'
+            className="w-24 rounded bg-[#97C193] py-1.5 font-bold md:w-20 md:text-sm"
             onClick={() => handleSave()}
           >
             Save
@@ -69,24 +69,24 @@ function CartItem(props: Props) {
         )}
         {!editing && (
           <button
-            className='w-24 rounded bg-[#97C193] py-1.5 font-bold md:w-20 md:text-sm'
+            className="w-24 rounded bg-[#97C193] py-1.5 font-bold md:w-20 md:text-sm"
             onClick={() => setEditing(true)}
           >
             Edit Count
           </button>
         )}
       </div>
-      <div className='flex flex-col justify-around justify-self-end'>
-        <p className='text-right text-xl font-bold text-[#ECECEC]'>{`$${(
+      <div className="flex flex-col justify-around justify-self-end">
+        <p className="text-right text-xl font-bold text-[#ECECEC]">{`$${(
           props.price * props.amount
         ).toFixed(2)}`}</p>
         {props.amount > 1 && (
-          <p className='text-right text-sm text-gray-300'>{`($${props.price.toFixed(
-            2
+          <p className="text-sm text-right text-gray-300">{`($${props.price.toFixed(
+            2,
           )} each)`}</p>
         )}
         <button
-          className='h-8 w-24 rounded bg-[#C95252] font-bold md:w-28 md:text-sm'
+          className="h-8 w-24 rounded bg-[#C95252] font-bold md:w-28 md:text-sm"
           onClick={() => handleCartItemDelete(props.id)}
         >
           Delete

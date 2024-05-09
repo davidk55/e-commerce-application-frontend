@@ -9,7 +9,7 @@ function useRefreshToken() {
         `${myAxios.defaults.baseURL}/api/v1/refresh`,
         {
           withCredentials: true,
-        }
+        },
       );
       return data;
     } catch (error: any) {

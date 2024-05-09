@@ -25,23 +25,23 @@ function ProductListItem(props: Props) {
   }
 
   return (
-    <div className='flex flex-col gap-5'>
-      <button className='text-left' onClick={() => handleNavigation()}>
-        <img className='mb-3 h-40 rounded' src={props.imageUrl} />
-        <p className='mb-2 text-sm'>{props.name}</p>
-        <p className='mb-3 text-xl'>{`$${props.price.toFixed(2)}`}</p>
-        <p className='text-xs text-[#ECECEC]'>{`Category: ${props.category}`}</p>
+    <div className="flex flex-col gap-5">
+      <button className="text-left" onClick={() => handleNavigation()}>
+        <img className="mb-3 h-40 rounded" src={props.imageUrl} />
+        <p className="mb-2 text-sm">{props.name}</p>
+        <p className="mb-3 text-xl">{`$${props.price.toFixed(2)}`}</p>
+        <p className="text-xs text-[#ECECEC]">{`Category: ${props.category}`}</p>
       </button>
       {authentication.auth.role == Role.admin && (
         <div>
           <button
-            className=' mr-5 w-24 rounded bg-[#97C193] py-1 text-sm font-bold'
+            className=" mr-5 w-24 rounded bg-[#97C193] py-1 text-sm font-bold"
             onClick={() => props.handleEdit(props.id)}
           >
             Edit
           </button>
           <button
-            className=' w-24 rounded bg-[#C95252] py-1 text-sm font-bold'
+            className=" w-24 rounded bg-[#C95252] py-1 text-sm font-bold"
             onClick={() => props.handleDelete(props.id)}
           >
             Delete

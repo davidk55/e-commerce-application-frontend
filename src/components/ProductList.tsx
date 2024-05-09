@@ -42,11 +42,11 @@ function ProductList() {
   function handleDelete(productId: number) {
     ProductApiHandler.deleteProduct(
       authentication?.auth.accessToken,
-      productId
+      productId,
     );
     setTimeout(() => {
       setProductUpdTrigger(
-        (prevProudctUpdTrigger) => prevProudctUpdTrigger + 1
+        (prevProudctUpdTrigger) => prevProudctUpdTrigger + 1,
       );
     }, 200);
   }
@@ -80,14 +80,14 @@ function ProductList() {
     <div>
       {authentication.auth.role == Role.admin && (
         <button
-          className='mb-8 h-8 w-36 items-start rounded bg-[#8B8DB2] font-bold md:w-40 md:text-sm'
+          className="mb-8 h-8 w-36 items-start rounded bg-[#8B8DB2] font-bold md:w-40 md:text-sm"
           onClick={() => createNewProduct()}
         >
           Create New Product
         </button>
       )}
       <SortBy sortOption={sortOption} setSortOption={setSortOption} />
-      <div className='grid max-w-screen-2xl items-center gap-32 rounded border border-[#6F6F6F] p-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+      <div className="grid max-w-screen-2xl items-center gap-32 rounded border border-[#6F6F6F] p-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <ProductListItemSorter sortIdentifier={sortOption.identifier}>
           {createProducts()}
         </ProductListItemSorter>

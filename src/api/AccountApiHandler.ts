@@ -10,7 +10,7 @@ class AccountApiHandler {
         { username: username, password: password },
         {
           withCredentials: true,
-        }
+        },
       );
       return data;
     } catch (error: any) {
@@ -27,7 +27,7 @@ class AccountApiHandler {
         { username: username, password: password },
         {
           withCredentials: true,
-        }
+        },
       );
       return data;
     } catch (error: any) {
@@ -44,7 +44,7 @@ class AccountApiHandler {
 
         {
           withCredentials: true,
-        }
+        },
       );
       return data;
     } catch (error: any) {

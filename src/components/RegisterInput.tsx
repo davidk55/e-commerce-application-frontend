@@ -36,8 +36,8 @@ function RegisterInput(props: Props) {
   }
 
   return (
-    <div className='mb-8'>
-      <label className='mb-3 block font-bold tracking-wide'>
+    <div className="mb-8">
+      <label className="block mb-3 font-bold tracking-wide">
         {props.inputName}
       </label>
       <input
@@ -57,7 +57,7 @@ function RegisterInput(props: Props) {
         }
       />
       {data.hadFocus && !data.validationPassed && (
-        <p className='mt-1.5 text-red-500'>{props.errorMessage}</p>
+        <p className="mt-1.5 text-red-500">{props.errorMessage}</p>
       )}
     </div>
   );

@@ -98,7 +98,7 @@ function Register() {
 
     const response = await AccountApiHandler.register(
       formData.current.username,
-      formData.current.password
+      formData.current.password,
     );
     if (typeof response == 'number') {
       setShowMessage({ userExist: true, invalidField: false });
@@ -107,10 +107,10 @@ function Register() {
 
     const userResponse = await AccountApiHandler.login(
       formData.current.username,
-      formData.current.password
+      formData.current.password,
     );
     const cartResponse = await CartApiHandler.getCart(
-      userResponse?.AccessToken
+      userResponse?.AccessToken,
     );
 
     if (typeof userResponse != 'number' || typeof cartResponse != 'number') {
@@ -135,9 +135,9 @@ function Register() {
   return (
     <form
       onSubmit={(e) => handleSubmit(e)}
-      className='flex w-11/12 max-w-2xl flex-col gap-10 rounded border border-[#6F6F6F] py-16 px-8 sm:w-8/12 md:px-24 lg:px-32'
+      className="flex w-11/12 max-w-2xl flex-col gap-10 rounded border border-[#6F6F6F] py-16 px-8 sm:w-8/12 md:px-24 lg:px-32"
     >
-      <h3 className='text-2xl font-bold tracking-wide'>Register</h3>
+      <h3 className="text-2xl font-bold tracking-wide">Register</h3>
       <div>
         {inputs.map((input, idx) => {
           return (
@@ -156,24 +156,24 @@ function Register() {
           );
         })}
         {showMessage.invalidField && (
-          <p className='mb-2 text-red-500'>
+          <p className="mb-2 text-red-500">
             In order to continue correct the invalid fields
           </p>
         )}
         {showMessage.userExist && (
-          <p className='mb-2 text-red-500'>User exist already</p>
+          <p className="mb-2 text-red-500">User exist already</p>
         )}
-        <div className='flex flex-col gap-10 md:flex-row lg:gap-16'>
+        <div className="flex flex-col gap-10 md:flex-row lg:gap-16">
           <button
-            className='w-24 rounded bg-[#97C193] py-1.5 text-sm font-bold'
-            type='submit'
+            className="w-24 rounded bg-[#97C193] py-1.5 text-sm font-bold"
+            type="submit"
           >
             Register
           </button>
 
           <button
-            className='w-24 rounded bg-[#C95252] py-1.5 text-sm font-bold'
-            type='button'
+            className="w-24 rounded bg-[#C95252] py-1.5 text-sm font-bold"
+            type="button"
             onClick={() => handleCancel()}
           >
             Cancel

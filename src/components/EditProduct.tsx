@@ -73,7 +73,7 @@ function EditProduct() {
 
     const response = await ProductApiHandler.updateProduct(
       authentication.auth.accessToken,
-      productData
+      productData,
     );
     console.log(response);
 
@@ -87,17 +87,17 @@ function EditProduct() {
   return (
     <form
       onSubmit={(e) => handleSubmit(e)}
-      className='flex w-11/12 max-w-2xl flex-col gap-10 rounded border border-[#6F6F6F] py-16 px-8 sm:w-8/12 md:px-24 lg:px-32'
+      className="flex w-11/12 max-w-2xl flex-col gap-10 rounded border border-[#6F6F6F] py-16 px-8 sm:w-8/12 md:px-24 lg:px-32"
     >
-      <h3 className='text-2xl font-bold tracking-wide'>Edit a Product</h3>
+      <h3 className="text-2xl font-bold tracking-wide">Edit a Product</h3>
       <div>
-        <label className='mb-3 block font-bold tracking-wide'>
+        <label className="block mb-3 font-bold tracking-wide">
           Product Name
         </label>
         <input
-          className='w-full border border-[#6F6F6F] bg-[#4F4F4F] py-0.5 px-1 outline-none'
-          type='text'
-          name='name'
+          className="w-full border border-[#6F6F6F] bg-[#4F4F4F] py-0.5 px-1 outline-none"
+          type="text"
+          name="name"
           value={productData.name}
           onChange={handleChange}
           required
@@ -105,11 +105,11 @@ function EditProduct() {
       </div>
 
       <div>
-        <label className='mb-3 block font-bold tracking-wide'>Category</label>
+        <label className="block mb-3 font-bold tracking-wide">Category</label>
         <input
-          className='w-full border border-[#6F6F6F] bg-[#4F4F4F] py-0.5 px-1 outline-none'
-          type='text'
-          name='category'
+          className="w-full border border-[#6F6F6F] bg-[#4F4F4F] py-0.5 px-1 outline-none"
+          type="text"
+          name="category"
           value={productData.category}
           onChange={handleChange}
           required
@@ -117,60 +117,60 @@ function EditProduct() {
       </div>
 
       <div>
-        <label className='mb-3 block font-bold tracking-wide'>
+        <label className="block mb-3 font-bold tracking-wide">
           Description
         </label>
         <input
-          className='w-full border border-[#6F6F6F] bg-[#4F4F4F] py-0.5 px-1 outline-none'
-          type='text'
-          name='description'
+          className="w-full border border-[#6F6F6F] bg-[#4F4F4F] py-0.5 px-1 outline-none"
+          type="text"
+          name="description"
           value={productData.description}
           onChange={handleChange}
         />
       </div>
 
       <div>
-        <label className='mb-3 block font-bold tracking-wide'>Image URL</label>
+        <label className="block mb-3 font-bold tracking-wide">Image URL</label>
         <input
-          className='w-full border border-[#6F6F6F] bg-[#4F4F4F] py-0.5 px-1 outline-none'
-          type='text'
-          name='imageUrl'
+          className="w-full border border-[#6F6F6F] bg-[#4F4F4F] py-0.5 px-1 outline-none"
+          type="text"
+          name="imageUrl"
           value={productData.imageUrl}
           onChange={handleChange}
         />
       </div>
 
       <div>
-        <label className='mb-3 block font-bold tracking-wide'>Price</label>
+        <label className="block mb-3 font-bold tracking-wide">Price</label>
         <input
-          className='w-full border border-[#6F6F6F] bg-[#4F4F4F] py-0.5 px-1 outline-none'
-          type='number'
-          name='price'
+          className="w-full border border-[#6F6F6F] bg-[#4F4F4F] py-0.5 px-1 outline-none"
+          type="number"
+          name="price"
           value={productData.price}
           onChange={handleChange}
         />
       </div>
 
       {showErrorMsg && (
-        <p className='-mb-6 text-red-500'>Something went wrong</p>
+        <p className="-mb-6 text-red-500">Something went wrong</p>
       )}
 
       {showInvalidPriceMsg && (
-        <p className='-mb-6 text-red-500'>
+        <p className="-mb-6 text-red-500">
           Provide a product price higher than zero
         </p>
       )}
 
-      <div className='flex flex-col gap-10 md:flex-row lg:gap-16'>
+      <div className="flex flex-col gap-10 md:flex-row lg:gap-16">
         <button
-          className='w-24 rounded bg-[#97C193] py-1.5 font-bold md:w-20 md:text-sm'
-          type='submit'
+          className="w-24 rounded bg-[#97C193] py-1.5 font-bold md:w-20 md:text-sm"
+          type="submit"
         >
           Save
         </button>
 
         <button
-          className='w-24 rounded bg-[#C95252] py-1.5 font-bold md:w-20 md:text-sm'
+          className="w-24 rounded bg-[#C95252] py-1.5 font-bold md:w-20 md:text-sm"
           onClick={() => navigate('/')}
         >
           Cancel
